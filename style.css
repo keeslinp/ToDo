@@ -1,6 +1,19 @@
 .item {
-  transition: background-color 1s;
+  transition: linear 1s;
+  opacity:1;
 }
-.item.done{
-  background: red;
+.item.ng-enter{
+    opacity: 0;
+}
+.item.ng-enter-active{
+  opacity:1;
+}
+.item.ng-leave{
+  transition-delay: 2s;
+  position:relative;
+  border-radius: 20%;
+  background:grey;
+}
+.item.ng-leave-active{
+  opacity:0;
 }

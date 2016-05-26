@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html ng-app = "ToDoApp">
 <head>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script src="controllers.js"></script>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="controllers.js"></script>
+
 </head>
 <body ng-controller="TaskListController">
-  <span ng-repeat="task in tasks track by $index">
-    <p class = 'item' ng-class = 'task.done'><input type="checkbox" ng-click="completeTask($index)" >{{task.text}} </p>
+  <span class = "item" ng-repeat="task in tasks track by task.u_id">
+    <input type="checkbox" ng-click="completeTask($index)" >{{task.text}}&nbsp&nbsp&nbsp<br />
   </span>
   New Task <input ng-model ="newTask"><button ng-click="addTask()">Add</button>
 </body>
