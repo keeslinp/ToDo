@@ -1,0 +1,6 @@
+.item {
+  transition: background-color 1s;
+}
+.item.done{
+  background: red;
+}
