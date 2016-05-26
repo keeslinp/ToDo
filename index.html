@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html ng-app = "ToDoApp">
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="controllers.js"></script>
+</head>
+<body ng-controller="TaskListController">
+  <span ng-repeat="task in tasks track by $index">
+    <button ng-click="removeTask($index)" >:)</button>
+    {{task}} <br />
+  </span>
+  New Task <input ng-model ="newTask"><button ng-click="addTask()">Add</button>
+</body>
+</html>
