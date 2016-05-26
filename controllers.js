@@ -8,5 +8,6 @@ ToDoApp.controller('TaskListController', function TaskListController($scope) {
   };
   $scope.removeTask = function(index){
     $scope.tasks.splice(index,1);
+    $scope.checked=false;
   };
 });

@@ -6,7 +6,7 @@
 </head>
 <body ng-controller="TaskListController">
   <span ng-repeat="task in tasks track by $index">
-    <button ng-click="removeTask($index)" >:)</button>
+    <input type="checkbox" onclick="checked=false" ng-click="removeTask($index)" >
     {{task}} <br />
   </span>
   New Task <input ng-model ="newTask"><button ng-click="addTask()">Add</button>
