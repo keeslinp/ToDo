@@ -1,7 +1,7 @@
 var ToDoApp = angular.module('ToDoApp', ['ngAnimate']);
 
 ToDoApp.controller('TaskListController', function TaskListController($scope) {
-  $scope.tasks = [{text:"Example Task. Click me to complete me :).",u_id:guid()}];
+  $scope.tasks = [{text:"Example Task. Check me off to complete me :).",u_id:guid()}];
   $scope.addTask = function () {
     $scope.tasks.push({text:$scope.newTask,u_id:guid()});
     $scope.newTask = '';

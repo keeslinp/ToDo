@@ -2,6 +2,9 @@
   transition: linear 1s;
   opacity:1;
 }
+.item:hover{
+  background:lightgrey;
+}
 .item.ng-enter{
     opacity: 0;
 }
@@ -9,10 +12,8 @@
   opacity:1;
 }
 .item.ng-leave{
-  transition-delay: 2s;
   position:relative;
-  border-radius: 20%;
-  background:grey;
+  border-radius: 20px;
 }
 .item.ng-leave-active{
   opacity:0;
