@@ -5,14 +5,10 @@
   <link rel="stylesheet" href="style.css">
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
   <script src="controllers.js"></script>
-
 </head>
-<body ng-controller="TaskListController">
-  <span class = "item" ng-repeat="task in tasks track by task.u_id">
-    <input type="checkbox" ng-click="completeTask($index)" >{{task.text}}&nbsp&nbsp&nbsp<br />
-  </span>
-
-  New Task <input ng-model ="newTask"><button ng-click="addTask()">Add</button>
+<body>
+  <div ng-view></div>
 </body>
 </html>

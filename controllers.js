@@ -1,6 +1,18 @@
-var ToDoApp = angular.module('ToDoApp', ['ngAnimate']);
+var ToDoApp = angular.module('ToDoApp', ['ngAnimate','ngRoute']);
 
-ToDoApp.controller('TaskListController', function TaskListController($scope) {
+
+ToDoApp.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.
+  when('/tasks', {
+    templateUrl: 'tasks.html',
+    controller: 'ListController'
+  }).
+  otherwise({
+    redirectTo: '/tasks'
+  });
+}]);
+
+ToDoApp.controller('ListController', function ListController($scope) {
   $scope.tasks = [{text:"Example Task. Check me off to complete me :).",u_id:guid()}];
   $scope.addTask = function () {
     $scope.tasks.push({text:$scope.newTask,u_id:guid()});
