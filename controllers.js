@@ -7,8 +7,12 @@ ToDoApp.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'tasks.html',
     controller: 'ListController'
   }).
+  when('/login',{
+    templateUrl: 'login.html',
+    controller: 'LoginController'
+  }).
   otherwise({
-    redirectTo: '/tasks'
+    redirectTo: '/login'
   });
 }]);
 
@@ -35,3 +39,39 @@ function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
 }
+
+ToDoApp.controller('LoginController', function LoginController($scope,$location,$http, user){
+  $scope.login = function() {
+    $http.post("test.php",{"username":$scope.username,"password":$scope.password})
+   .then(function (response) {
+     if(response.data.success=="true")
+     {
+       user.setUsername($scope.username);
+       user.setPassword($scope.password);
+       $location.path('tasks');
+     }else{
+       $scope.message = "Wrong username/password, try again.";
+     }
+   });
+  };
+});
+
+ToDoApp.service('user', function(){
+  var username = "";
+  var password = "";
+
+  return{
+    getUsername: function(){
+      return username;
+    },
+    setUsername: function(name){
+      username=name;
+    },
+    getPassword: function(){
+      return password;
+    },
+    setPassword: function(word){
+      password=word;
+    }
+  };
+});
