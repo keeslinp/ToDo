@@ -1,23 +1,34 @@
-var ToDoApp = angular.module('ToDoApp', ['ngAnimate','ngRoute']);
+var ToDoApp = angular.module('ToDoApp', ['ngAnimate','ui.router']);
 
 
-ToDoApp.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.
-  when('/tasks', {
+ToDoApp.config(function($stateProvider,$urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/login');
+
+  $stateProvider.
+  state('tasks', {
+    url: '/tasks',
     templateUrl: 'tasks.html',
     controller: 'ListController'
   }).
-  when('/login',{
+  state('login',{
+    url: '/login',
     templateUrl: 'login.html',
     controller: 'LoginController'
-  }).
-  otherwise({
-    redirectTo: '/login'
   });
-}]);
+});
 
-ToDoApp.controller('ListController', function ListController($scope) {
-  $scope.tasks = [{text:"Example Task. Check me off to complete me :).",u_id:guid()}];
+ToDoApp.controller('ListController', function ListController($scope,$state,user,$http) {
+  $scope.username = user.getUsername();
+  $scope.tasks = [];
+  $http.post("getTasks.php",{'username':user.getUsername(),'password':user.getPassword()}).then(function (response)
+  {
+      for(task in response.data.tasks)
+      {
+        $scope.tasks.push({text:response.data.tasks[task],u_id:guid()});
+      }
+  });
+  //$scope.tasks = [{text:"Example Task. Check me off to complete me :).",u_id:guid()}];
   $scope.addTask = function () {
     $scope.tasks.push({text:$scope.newTask,u_id:guid()});
     $scope.newTask = '';
@@ -40,15 +51,15 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
-ToDoApp.controller('LoginController', function LoginController($scope,$location,$http, user){
+ToDoApp.controller('LoginController', function LoginController($scope,$state,$http, user){
   $scope.login = function() {
-    $http.post("test.php",{"username":$scope.username,"password":$scope.password})
+    $http.post("login.php",{"username":$scope.username,"password":$scope.password})
    .then(function (response) {
      if(response.data.success=="true")
      {
        user.setUsername($scope.username);
        user.setPassword($scope.password);
-       $location.path('tasks');
+       $state.go("tasks");
      }else{
        $scope.message = "Wrong username/password, try again.";
      }
