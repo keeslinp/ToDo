@@ -23,22 +23,20 @@ ToDoApp.controller('ListController', function ListController($scope,$state,user,
   $scope.tasks = [];
   $http.post("getTasks.php",{'username':user.getUsername(),'password':user.getPassword()}).then(function (response)
   {
-      for(task in response.data.tasks)
-      {
-        $scope.tasks.push({text:response.data.tasks[task],u_id:guid()});
-      }
+      $scope.tasks = response.data.tasks;
+      console.log($scope.tasks);
   });
-  //$scope.tasks = [{text:"Example Task. Check me off to complete me :).",u_id:guid()}];
   $scope.addTask = function () {
     $scope.tasks.push({text:$scope.newTask,u_id:guid()});
     $scope.newTask = '';
+    $http.post("addTasks.php",{'username':user.getUsername(),'password':user.getPassword(),'task':$scope.tasks[$scope.tasks.length-1]}).then(function (response){
+      console.log(response.data.report);
+    });
   };
   $scope.completeTask = function(index){
-    //TODO figure out how to remove item at end of animation
     $scope.tasks.splice(index,1);
-    //$scope.checked=false;
-    //$scope.tasks[index].done=($scope.tasks[index].done=='' ? 'done' : '');
-    };
+    $http.post("removeTasks.php",{'username':user.getUsername(),'password':user.getPassword(),'id':index})
+  };
 });
 
 function guid() {
