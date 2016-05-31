@@ -18,10 +18,3 @@
 .item.ng-leave-active{
   opacity:0;
 }
-
-.footer{
-       position: fixed;
-       text-align: left;
-       bottom: 0px;
-       width: 100%;
-   }
