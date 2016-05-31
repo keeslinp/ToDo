@@ -1,7 +1,4 @@
-var ToDoApp = angular.module('ToDoApp', ['ngAnimate','ui.router']);
-
-
-ToDoApp.config(function($stateProvider,$urlRouterProvider) {
+angular.module('ToDoApp', ['ngAnimate','ui.router']).config(function($stateProvider,$urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/login');
 
@@ -16,9 +13,9 @@ ToDoApp.config(function($stateProvider,$urlRouterProvider) {
     templateUrl: 'login.html',
     controller: 'LoginController'
   });
-});
+})
 
-ToDoApp.controller('ListController', function ListController($scope,$state,user,$http) {
+.controller('ListController', function ListController($scope,$state,user,$http) {
   $scope.username = user.getUsername();
   $scope.tasks = [];
   $http.post("getTasks.php",{'username':user.getUsername(),'password':user.getPassword()}).then(function (response)
@@ -37,19 +34,9 @@ ToDoApp.controller('ListController', function ListController($scope,$state,user,
     $scope.tasks.splice(index,1);
     $http.post("removeTasks.php",{'username':user.getUsername(),'password':user.getPassword(),'id':index})
   };
-});
+})
 
-function guid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
-}
-
-ToDoApp.controller('LoginController', function LoginController($scope,$state,$http, user){
+.controller('LoginController', function LoginController($scope,$state,$http, user){
   $scope.login = function() {
     $http.post("login.php",{"username":$scope.username,"password":$scope.password})
    .then(function (response) {
@@ -63,9 +50,9 @@ ToDoApp.controller('LoginController', function LoginController($scope,$state,$ht
      }
    });
   };
-});
+})
 
-ToDoApp.service('user', function(){
+.service('user', function(){
   var username = "";
   var password = "";
 
@@ -83,4 +70,20 @@ ToDoApp.service('user', function(){
       password=word;
     }
   };
-});
+})
+
+.directive('tdaTasks', function(){
+  return{
+        templateUrl: '/taskListTemplate.html'
+  };
+})
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
