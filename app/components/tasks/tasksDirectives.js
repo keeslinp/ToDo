@@ -1,6 +1,6 @@
 
 angular.module("ToDoApp").directive('tdaTasks', function(){
   return{
-        templateUrl: 'taskListTemplate.html'
+        templateUrl: 'app/components/tasks/taskListTemplate.html'
   };
 });
